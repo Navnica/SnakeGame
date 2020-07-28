@@ -10,6 +10,7 @@ def setDefault():
     pygame.display.set_caption('SnakeGame by TruEnot')
 
     snake = {
+        'colors' : {0 : (0,255,0)},
         0 : [resolution[0] // 2 - 10,resolution[1] // 2 - 10]
     }
 
@@ -33,7 +34,10 @@ def drawAll():
     screen.fill((0, 0, 0))
 
     for obj in snake:
-        pygame.draw.rect(screen,(0,255,0),(snake[obj][0],snake[obj][1],10,10))
+        if not str(obj).isdigit():
+            continue
+
+        pygame.draw.rect(screen,snake['colors'][obj],(snake[obj][0],snake[obj][1],10,10))
 
     for fruit in fruits:
         if not str(fruit).isdigit():
@@ -56,7 +60,7 @@ def snakeMove():
         snake.update({0 : [snake[0][0] + sides[side] * 10,snake[0][1]]})
 
     for pad in snake:
-        if pad == 0:
+        if pad == 0 or not str(pad).isdigit():
             continue
 
         snake[pad] = oldSnake[pad - 1]
@@ -129,8 +133,12 @@ while run:
             continue
 
         if snake[0] == fruits[fruit]['position']:
+
+            l = len(snake) - 1
+            snake.update({l : [resolution[0]+10,resolution[1]+10]})
+            snake['colors'].update({l : fruits[fruit]['color']})
+
             fruits.pop(fruit)
-            snake.update({len(snake) : [resolution[0]+10,resolution[1]+10]})
             score += 1
             fps = 15 + score // 10
 
