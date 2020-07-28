@@ -1,5 +1,6 @@
 import pygame
 import random
+import pkg_resources.py2_warn
 
 pygame.init()
 
@@ -104,6 +105,9 @@ while run:
     snakeMove()
     fruitGenerate()
     keys = pygame.key.get_pressed()
+
+    if keys[pygame.K_1]:
+        fps = 1
 
     if keys[pygame.K_r]:
         setDefault()
