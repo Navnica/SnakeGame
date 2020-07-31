@@ -136,7 +136,7 @@ while run:
 
             l = len(snake) - 1
             snake.update({l : [resolution[0]+10,resolution[1]+10]})
-            snake['colors'].update({l : fruits[fruit]['color']})
+            snake['colors'].update({l : (0,255,0)})
 
             fruits.pop(fruit)
             score += 1
